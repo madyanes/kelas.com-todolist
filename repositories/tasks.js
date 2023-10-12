@@ -24,4 +24,9 @@ const createTask = async (userId, title, isDone) => {
   return dbPool.query(query, values);
 };
 
-export { getTasks, createTask };
+const deleteTask = async (taskId) => {
+  const query = 'DELETE FROM tasks WHERE task_id = ?';
+  return dbPool.query(query, taskId);
+};
+
+export { getTasks, createTask, deleteTask };

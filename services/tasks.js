@@ -20,4 +20,15 @@ const createTasks = async (userId, title, isDone) => {
   }
 };
 
-export { getTasks, createTasks };
+const deleteTask = async (taskId) => {
+  const [result] = await tasksRepo.deleteTask(taskId);
+
+  if (result.affectedRows) {
+    console.log(`Task with ID ${taskId} is deleted.`);
+  } else {
+    console.log(`Task with ID ${taskId} is not found.`);
+  }
+  console.log(result);
+};
+
+export { getTasks, createTasks, deleteTask };
