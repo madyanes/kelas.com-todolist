@@ -1,4 +1,5 @@
 import dbPool from '../utils/db.js';
+import { ObjectKeysToString, ObjectValues } from '../utils/helper.js';
 
 const getTasks = async () => {
   const query =
@@ -6,4 +7,21 @@ const getTasks = async () => {
   return dbPool.query(query);
 };
 
-export { getTasks };
+const createTask = async (userId, title, isDone) => {
+  const createdAt = new Date();
+  const newRecord = {
+    user_id: userId,
+    title: title,
+    is_done: isDone,
+    created_at: createdAt,
+  };
+
+  const keys = ObjectKeysToString(newRecord);
+  const values = ObjectValues(newRecord);
+
+  const query = `INSERT INTO tasks(${keys}) VALUES(?, ?, ?, ?)`;
+
+  return dbPool.query(query, values);
+};
+
+export { getTasks, createTask };
