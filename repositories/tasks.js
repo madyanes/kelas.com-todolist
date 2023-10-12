@@ -1,5 +1,9 @@
 import dbPool from '../utils/db.js';
-import { ObjectKeysToString, ObjectValues } from '../utils/helper.js';
+import {
+  ObjectKeysToString,
+  ObjectKeysToStringForUpdate,
+  ObjectValues,
+} from '../utils/helper.js';
 
 const getTasks = async () => {
   const query =
@@ -29,4 +33,18 @@ const deleteTask = async (taskId) => {
   return dbPool.query(query, taskId);
 };
 
-export { getTasks, createTask, deleteTask };
+const updateTask = async (taskId, title, isDone) => {
+  const updatedRecord = {
+    title: title,
+    is_done: isDone,
+    updated_at: new Date(),
+  };
+
+  const keys = ObjectKeysToStringForUpdate(updatedRecord);
+  const values = ObjectValues(updatedRecord).concat(taskId);
+
+  const query = `UPDATE tasks SET ${keys} WHERE task_id = ?`;
+  return dbPool.query(query, values);
+};
+
+export { getTasks, createTask, deleteTask, updateTask };

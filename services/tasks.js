@@ -30,4 +30,14 @@ const deleteTask = async (taskId) => {
   }
 };
 
-export { getTasks, createTasks, deleteTask };
+const updateTask = async (taskId, title, isDone) => {
+  const [result] = await tasksRepo.updateTask(taskId, title, isDone);
+
+  if (result.affectedRows) {
+    console.log(`Task with ID ${taskId} is updated.`);
+  } else {
+    console.log(`Task with ID ${taskId} is not found.`);
+  }
+};
+
+export { getTasks, createTasks, deleteTask, updateTask };

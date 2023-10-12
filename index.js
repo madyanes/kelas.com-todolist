@@ -7,3 +7,6 @@ await tasksService.getTasks();
 
 /** Uncomment this to delete a task. */
 // await tasksService.deleteTask(11);
+
+/** Uncomment this to update a task. */
+// await tasksService.updateTask(10, 'Beli keyboard', 0);
