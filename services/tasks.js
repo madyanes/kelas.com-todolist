@@ -1,12 +1,17 @@
 import * as tasksRepo from '../repositories/tasks.js';
+import { errorResponse, successResponse } from '../utils/response.js';
 
-const getTasks = async () => {
-  const [tasks] = await tasksRepo.getTasks();
+const getTasks = async (req, res, next) => {
+  try {
+    const [tasks] = await tasksRepo.getTasks();
 
-  if (tasks.length === 0) {
-    console.log('No tasks.');
-  } else {
-    console.log(tasks);
+    if (tasks.length === 0) {
+      errorResponse(res, 'No tasks found.', 404);
+    } else {
+      successResponse(res, 'Success.', tasks);
+    }
+  } catch (error) {
+    next(error);
   }
 };
 

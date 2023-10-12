@@ -1,6 +1,15 @@
+import express from 'express';
 import * as tasksService from './services/tasks.js';
 
-await tasksService.getTasks();
+const app = express();
+
+app.use(express.json());
+
+app.get('/tasks', tasksService.getTasks);
+
+app.listen(3000, () => {
+  console.log('Server is running on port 3000.');
+});
 
 /** Uncomment this to create a task. */
 // await tasksService.createTasks(1, 'Beli gula', 1);
