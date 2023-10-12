@@ -28,7 +28,6 @@ const deleteTask = async (taskId) => {
   } else {
     console.log(`Task with ID ${taskId} is not found.`);
   }
-  console.log(result);
 };
 
 export { getTasks, createTasks, deleteTask };
