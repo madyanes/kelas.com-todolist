@@ -17,3 +17,12 @@ password: kelasdotcom
 database: kelasdotcom
 port: 3306
 ```
+
+Pastikan juga telah tersedia tabel `tasks`, dengan kolom-kolom sebagai berikut:
+
+- task_id => int auto increment
+- user_id => int
+- title => varchar
+- is_done => tinyint => (0/1)
+- created_at => datetime
+- updated_at => datetime
