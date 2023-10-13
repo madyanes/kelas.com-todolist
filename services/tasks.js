@@ -53,13 +53,21 @@ const deleteTask = async (req, res, next) => {
   }
 };
 
-const updateTask = async (taskId, title, isDone) => {
-  const [result] = await tasksRepo.updateTask(taskId, title, isDone);
+const updateTask = async (req, res, next) => {
+  try {
+    const taskId = req.params.id;
+    const title = req.body.title;
+    const isDone = req.body.isDone;
 
-  if (result.affectedRows) {
-    console.log(`Task with ID ${taskId} is updated.`);
-  } else {
-    console.log(`Task with ID ${taskId} is not found.`);
+    const [result] = await tasksRepo.updateTask(taskId, title, isDone);
+
+    if (result.affectedRows) {
+      successResponse(res, `Task with ID ${taskId} is updated.`, result, 204);
+    } else {
+      errorResponse(res, `Task with ID ${taskId} is not found.`, 404);
+    }
+  } catch (error) {
+    next(error);
   }
 };
 
