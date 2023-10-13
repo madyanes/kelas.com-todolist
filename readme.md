@@ -26,3 +26,17 @@ Pastikan juga telah tersedia tabel `tasks`, dengan kolom-kolom sebagai berikut:
 - is_done => tinyint => (0/1)
 - created_at => datetime
 - updated_at => datetime
+
+Gunakan kueri ini untuk membuat tabel `tasks`.
+
+```sql
+CREATE TABLE tasks(
+    task_id int auto_increment,
+    user_id int,
+    title varchar(50),
+    is_done tinyint,
+    created_at datetime,
+    updated_at datetime,
+    primary key(task_id)
+);
+```
