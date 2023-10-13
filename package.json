@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/madyanes/kelas.com-todolist#readme",
   "dependencies": {
+    "bcrypt": "^5.1.1",
     "express": "^4.18.2",
     "mysql2": "^3.6.1"
   },
