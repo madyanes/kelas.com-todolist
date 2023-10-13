@@ -38,13 +38,18 @@ const createTask = async (req, res, next) => {
   }
 };
 
-const deleteTask = async (taskId) => {
-  const [result] = await tasksRepo.deleteTask(taskId);
+const deleteTask = async (req, res, next) => {
+  try {
+    const taskId = req.params.id;
+    const [result] = await tasksRepo.deleteTask(taskId);
 
-  if (result.affectedRows) {
-    console.log(`Task with ID ${taskId} is deleted.`);
-  } else {
-    console.log(`Task with ID ${taskId} is not found.`);
+    if (result.affectedRows) {
+      successResponse(res, `Task with ID ${taskId} is deleted.`, 204);
+    } else {
+      errorResponse(res, `Task with ID ${taskId} is not found.`, 404);
+    }
+  } catch (error) {
+    next(error);
   }
 };
 
