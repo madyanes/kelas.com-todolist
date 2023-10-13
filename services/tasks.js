@@ -15,13 +15,26 @@ const getTasks = async (req, res, next) => {
   }
 };
 
-const createTasks = async (userId, title, isDone) => {
-  let [result] = await tasksRepo.createTask(userId, title, isDone);
+const createTask = async (req, res, next) => {
+  try {
+    const userId = req.body.userId;
+    const title = req.body.title;
+    const isDone = req.body.isDone;
 
-  if (result.insertId) {
-    console.log(`Task with ID ${result.insertId} is created.`);
-  } else {
-    console.log('Failed to create a task.');
+    const [result] = await tasksRepo.createTask(userId, title, isDone);
+
+    if (result.insertId) {
+      successResponse(
+        res,
+        `Task with ID ${result.insertId} is created.`,
+        { id: result.insertId },
+        201
+      );
+    } else {
+      errorResponse(res, 'Task is not created.', 500);
+    }
+  } catch (error) {
+    next(error);
   }
 };
 
@@ -45,4 +58,4 @@ const updateTask = async (taskId, title, isDone) => {
   }
 };
 
-export { getTasks, createTasks, deleteTask, updateTask };
+export { getTasks, createTask, deleteTask, updateTask };
