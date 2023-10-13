@@ -44,7 +44,12 @@ const deleteTask = async (req, res, next) => {
     const [result] = await tasksRepo.deleteTask(taskId);
 
     if (result.affectedRows) {
-      successResponse(res, `Task with ID ${taskId} is deleted.`, 204);
+      successResponse(
+        res,
+        `Task with ID ${taskId} is deleted.`,
+        { id: taskId },
+        204
+      );
     } else {
       errorResponse(res, `Task with ID ${taskId} is not found.`, 404);
     }
@@ -62,7 +67,12 @@ const updateTask = async (req, res, next) => {
     const [result] = await tasksRepo.updateTask(taskId, title, isDone);
 
     if (result.affectedRows) {
-      successResponse(res, `Task with ID ${taskId} is updated.`, result, 204);
+      successResponse(
+        res,
+        `Task with ID ${taskId} is updated.`,
+        { id: taskId },
+        204
+      );
     } else {
       errorResponse(res, `Task with ID ${taskId} is not found.`, 404);
     }
